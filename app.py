@@ -95,6 +95,7 @@ def update_profile():
         return jsonify({"msg": "Avatar is required"}), 400
             
     file = request.files['avatar']
+    # name = request.form.get("name")
     # if user does not select file, browser also
     # submit an empty part without filename
     if file.filename == '':
@@ -112,7 +113,7 @@ def update_profile():
         user.avatar = filename
         user.update()
 
-        return jsonify({"success": "Profile updated successfully!"}), 200
+        return jsonify({"success": "Profile updated successfully!", "user": user.serialize()}), 200
         #return redirect(url_for('uploaded_file', filename=filename))
 
     return jsonify({"msg": "Image not allowed!"}), 400

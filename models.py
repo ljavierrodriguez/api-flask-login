@@ -20,6 +20,18 @@ class User(db.Model):
             "active": self.active
         }
 
+    def serialize_with_certificates(self):
+        certicates = list(map(lambda cert: cert.serialize(), self.certificates))
+        
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "avatar": self.avatar,
+            "active": self.active,
+            "certificates": certificates
+        }
+
     def save(self):
         db.session.add(self)
         db.session.commit()
